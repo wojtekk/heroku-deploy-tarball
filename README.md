@@ -1,4 +1,4 @@
-# heroku-deploy-tarball
+# heroku-deploy-tarball [![npm version](https://badge.fury.io/js/heroku-deploy-tarball.svg)](http://badge.fury.io/js/heroku-deploy-tarball)
 
 A tiny script for automating the deployment of a tarball to heroku.
 
