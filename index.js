@@ -41,6 +41,9 @@ module.exports = function(config) {
   console.log(chalk.blue('Getting source urls...'));
   request(sourceConfig, function(e, res, body) {
     if (!e) {
+      if(res.statusCode >= 400) {
+        return handleError(source, res);
+      }
       console.log(chalk.green('SUCCESS!'));
       var source = JSON.parse(body);
       var tarball = fs.readFileSync(path.resolve(config.tarball));
