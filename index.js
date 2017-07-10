@@ -20,11 +20,14 @@ module.exports = function(config) {
 
   var APP_URL = 'https://api.heroku.com/apps/' + config.app;
 
-  var nrc = netrc('api.heroku.com');
-  var credentials = {
-    username: nrc.login,
-    password: nrc.password
-  };
+  var credentials = config.credentials;
+  if(!credentials || !credentials.username || !credentials.password) {
+    var nrc = netrc('api.heroku.com');
+    credentials = {
+      username: nrc.login,
+      password: nrc.password
+    };
+  }
 
   var sourceConfig = {
     method: 'POST',
