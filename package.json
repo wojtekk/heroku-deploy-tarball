@@ -1,6 +1,6 @@
 {
   "name": "heroku-deploy-tarball",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tiny script for automating the deployment of a tarball to heroku.",
   "main": "index.js",
   "scripts": {
