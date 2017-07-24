@@ -4,7 +4,11 @@
   "description": "A tiny script for automating the deployment of a tarball to heroku.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "precommit": "npm run lint",
+    "prepublishOnly": "pkg-ok"
   },
   "repository": {
     "type": "git",
@@ -20,9 +24,16 @@
   },
   "homepage": "https://github.com/Rounded/heroku-deploy-tarball#readme",
   "dependencies": {
-    "chalk": "^1.1.1",
-    "chance": "^0.7.7",
-    "node-netrc": "^0.1.0",
-    "request": "^2.63.0"
+    "chalk": "2.0.1",
+    "chance": "1.0.10",
+    "node-netrc": "0.1.0",
+    "request": "2.81.0"
+  },
+  "devDependencies": {
+    "eslint": "4.3.0",
+    "eslint-config-airbnb-base": "11.3.0",
+    "eslint-plugin-import": "2.7.0",
+    "husky": "0.14.3",
+    "pkg-ok": "1.1.0"
   }
 }
