@@ -65,11 +65,11 @@ if (argv.password) {
 }
 
 htd({
-    app: argv.app,
-    file: argv.file,
-    credentials,
-    logger: argv.verbose ? console : null,
-  })
+  app: argv.app,
+  file: argv.file,
+  credentials,
+  logger: argv.verbose ? console : null,
+})
   .catch((err) => {
     console.error(chalk.red('Unknown error:', err));
     process.exit(1);
