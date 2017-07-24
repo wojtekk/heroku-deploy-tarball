@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const request = require('request');
+const request = require('request-promise');
 const netrc = require('node-netrc');
 const chalk = require('chalk');
 const Chance = require('chance');
@@ -8,8 +8,8 @@ const Chance = require('chance');
 const chance = new Chance();
 
 module.exports = (config) => {
-  function handleError(e, res) {
-    console.log(chalk.red('Uh oh, something went wrong...'), e, res.statusCode);
+  function handleError(e) {
+    console.log(chalk.red('Uh oh, something went wrong...'), e);
   }
 
   if (!config.app) {
@@ -40,27 +40,24 @@ module.exports = (config) => {
       Accept: 'application/vnd.heroku+json; version=3',
     },
     auth: credentials,
+    json: true,
   };
 
   console.log(chalk.blue('Getting source urls...'));
-  request(sourceConfig, (e, res, body) => {
-    if (!e) {
-      if (res.statusCode >= 400) {
-        return handleError(body, res);
-      }
+  request(sourceConfig)
+    .then((source) => {
       console.log(chalk.green('SUCCESS!'));
-      const source = JSON.parse(body);
       const tarball = fs.readFileSync(path.resolve(config.tarball));
       console.log(chalk.blue('Uploading tarball...'));
       return request({
         method: 'PUT',
         url: source.source_blob.put_url,
         body: tarball,
-      }, (err, res2) => {
-        if (!err) {
+      })
+        .then(() => {
           console.log(chalk.green('SUCCESS!'));
           console.log(chalk.blue('Creating build...'));
-          request({
+          return request({
             method: 'POST',
             url: `${APP_URL}/builds`,
             headers: {
@@ -74,18 +71,11 @@ module.exports = (config) => {
                 version: chance.hash(),
               },
             },
-          }, (err3, res3) => {
-            if (!err3) {
-              console.log(chalk.green('SUCCESS!'));
-            } else {
-              handleError(err3, res3);
-            }
-          });
-        } else {
-          handleError(err, res2);
-        }
-      });
-    }
-    return handleError(e, res);
-  });
+          })
+            .then(() => console.log(chalk.green('SUCCESS!')))
+            .catch(err => handleError(err));
+        })
+        .catch(err => handleError(err));
+    })
+    .catch(err => handleError(err));
 };

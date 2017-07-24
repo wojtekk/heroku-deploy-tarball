@@ -27,12 +27,14 @@
     "chalk": "2.0.1",
     "chance": "1.0.10",
     "node-netrc": "0.1.0",
-    "request": "2.81.0"
+    "request": "2.81.0",
+    "request-promise": "^4.2.1"
   },
   "devDependencies": {
     "eslint": "4.3.0",
     "eslint-config-airbnb-base": "11.3.0",
     "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-promise": "^3.5.0",
     "husky": "0.14.3",
     "pkg-ok": "1.1.0"
   }
