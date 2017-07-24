@@ -1,4 +1,4 @@
-# Heroku Tarball Deploy [![npm version](https://badge.fury.io/js/heroku-traball-deploy.svg)](http://badge.fury.io/js/heroku-traball-deploy) [![Build Status](https://travis-ci.org/wojtekk/heroku-tarball-deploy.svg?branch=master)](https://travis-ci.org/wojtekk/heroku-tarball-deploy)
+# Heroku Tarball Deploy [![npm version](https://badge.fury.io/js/heroku-tarball-deploy.svg)](http://badge.fury.io/js/heroku-tarball-deploy) [![Build Status](https://travis-ci.org/wojtekk/heroku-tarball-deploy.svg?branch=master)](https://travis-ci.org/wojtekk/heroku-tarball-deploy)
 
 A library and CLI script for automating a deployment of a tarball (_tgz_ or _tar_ file) to Heroku.
 
