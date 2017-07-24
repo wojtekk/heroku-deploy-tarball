@@ -1,8 +1,8 @@
 {
-  "name": "heroku-deploy-tarball",
-  "version": "1.0.1",
+  "name": "heroku-tarball-deploy",
+  "version": "1.0.0",
   "description": "A tiny script for automating the deployment of a tarball to heroku.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
@@ -10,31 +10,39 @@
     "precommit": "npm run lint",
     "prepublishOnly": "pkg-ok"
   },
+  "bin": {
+    "htd": "node ./cli.js"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rounded/heroku-deploy-tarball.git"
+    "url": "git+https://github.com/wojtekk/heroku-tarball-deploy.git"
   },
   "keywords": [
     "heroku"
   ],
-  "author": "John Shanley",
+  "author": "Wojciech Krawczyk",
+  "contributors": [
+    "John Shanley"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Rounded/heroku-deploy-tarball/issues"
+    "url": "https://github.com/Rounded/heroku-tarball-deploy/issues"
   },
-  "homepage": "https://github.com/Rounded/heroku-deploy-tarball#readme",
+  "homepage": "https://github.com/Rounded/heroku-tarball-deploy#readme",
   "dependencies": {
     "chalk": "2.0.1",
     "chance": "1.0.10",
+    "minimist": "1.2.0",
     "node-netrc": "0.1.0",
     "request": "2.81.0",
-    "request-promise": "^4.2.1"
+    "request-promise-native": "1.0.4",
+    "through2-spy": "2.0.0"
   },
   "devDependencies": {
     "eslint": "4.3.0",
     "eslint-config-airbnb-base": "11.3.0",
     "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-promise": "3.5.0",
     "husky": "0.14.3",
     "pkg-ok": "1.1.0"
   }
