@@ -11,7 +11,7 @@
     "prepublishOnly": "pkg-ok"
   },
   "bin": {
-    "htd": "node ./cli.js"
+    "htd": "bin/htd"
   },
   "repository": {
     "type": "git",
