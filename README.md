@@ -50,7 +50,7 @@ htd(opts)
 
 Available options:
 
-* `app*` - _required_, Heroku application name
+* `app` - _required_, Heroku application name
 * `file` - path to file (_tgz_ or _tar_), default: `build.tgz`
 * `credentials` - Heroku credentials
   * `username` - user name, use `git` if you pass Heroku API key as password, default: `git`
