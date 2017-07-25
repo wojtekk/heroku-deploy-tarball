@@ -29,7 +29,7 @@ Optional arguments:
 * `-u USERNAME`, `--username USERNAME` - Heroku username, default: `git`
 * `-p PASSWORD`, `-k PASSWORD`, `--password PASSWORD` - Heroku user spassword or API key
 
-### Library
+## Library
 
 Instalation:
 
@@ -37,7 +37,7 @@ Instalation:
 npm install heroku-tarball-deploy --save
 ```
 
-#### Usage
+### Usage
 
 Example usage:
 
