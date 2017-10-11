@@ -87,7 +87,7 @@ function deploy(opts) {
           version: chance.hash(),
         },
       },
-    })
+    }, { timeout: 120000 })
       .then(res => Object.assign({}, {
         id: res.id,
         outputStreamUrl: `${res.output_stream_url}`,
