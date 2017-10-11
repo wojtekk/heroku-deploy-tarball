@@ -35,8 +35,7 @@
     "minimist": "1.2.0",
     "node-netrc": "0.1.0",
     "request": "2.81.0",
-    "request-promise-native": "1.0.4",
-    "through2-spy": "2.0.0"
+    "request-promise-native": "1.0.4"
   },
   "devDependencies": {
     "eslint": "4.3.0",

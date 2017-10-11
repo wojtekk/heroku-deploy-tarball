@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const request = require('request-promise-native');
+const request = require('request');
+const prequest = require('request-promise-native');
 const Chance = require('chance');
-const spy = require('through2-spy');
 
 const chance = new Chance();
 
@@ -42,7 +42,7 @@ function deploy(opts) {
       json: true,
     };
 
-    return request(sourceConfig)
+    return prequest(sourceConfig)
       .then(source => Object.assign({}, {
         putUrl: source.source_blob.put_url,
         getUrl: source.source_blob.get_url,
@@ -58,7 +58,7 @@ function deploy(opts) {
 
     const tarball = fs.readFileSync(path.resolve(opts.file));
 
-    return request({
+    return prequest({
       method: 'PUT',
       url: config.putUrl,
       body: tarball,
@@ -73,7 +73,7 @@ function deploy(opts) {
   function createBuild(config) {
     log(INFO, 'Creating a build ...');
 
-    return request({
+    return prequest({
       method: 'POST',
       url: `${APP_URL}/builds`,
       headers: {
@@ -87,14 +87,14 @@ function deploy(opts) {
           version: chance.hash(),
         },
       },
-    }, { timeout: 120000 })
+    })
       .then(res => Object.assign({}, {
         id: res.id,
         outputStreamUrl: `${res.output_stream_url}`,
         status: res.status,
       }))
       .catch((err) => {
-        log(ERROR, 'Error ocured', err);
+        log(ERROR, 'Error occurred', err);
         throw err;
       });
   }
@@ -102,13 +102,22 @@ function deploy(opts) {
   function waitUntilBuildFinished(build) {
     log(INFO, 'Building an image ...');
 
-    const req = request({
-      method: 'GET',
-      url: build.outputStreamUrl,
-      auth: credentials,
+    return new Promise((resolve, reject) => {
+      request({
+        method: 'GET',
+        url: build.outputStreamUrl,
+        auth: credentials,
+        timeout: 60 * 60 * 1000,
+      }, (err, httpResponse, body) => {
+        if (err) {
+          log(ERROR, 'Unexpected error', err);
+          reject(err);
+        } else {
+          resolve(body);
+        }
+      })
+        .on('data', chunk => log(INFO, chunk.toString('utf8')));
     });
-
-    return req.pipe(spy(chunk => log(INFO, chunk.toString('utf8'))));
   }
 
   return getConfig()
